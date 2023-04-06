@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Axios from "axios";
+import SearchCity from "./components/SearchCity";
+import WeatherCity from "./components/WeatherCity";
 
-function App() {
+const App = () =>{
+   
+  const [city, setCity] = useState();
+  const [weather, setWeather] = useState();
+
+  const getWeather = async (e) =>{
+  
+    e.preventDefault();   
+    
+    const res = await Axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=705be47baca3509eb28ed6d72d4898e8&units=metric`
+      ,);
+    
+
+    // console.log(res.data);
+    setWeather(res.data);
+  
+   
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <SearchCity setCity={setCity} getWeather={getWeather}/>
+      {weather && <WeatherCity weather={weather}/>}   
+      
+    </>
+  )
 }
 
 export default App;
