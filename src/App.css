@@ -23,6 +23,7 @@ body {
   height: 44px;
   text-indent: 25px;
   border: 2px solid #d6d4d4;
+  font-size: 20px;
 }
 
 .search input:focus {
